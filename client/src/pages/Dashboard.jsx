@@ -134,8 +134,35 @@ export default function Dashboard() {
         </div>
       </motion.aside>
 
+      {/* MOBILE: Floating Bottom Rail */}
+      <nav className="fixed bottom-6 left-6 right-6 z-[300] lg:hidden">
+        <div className="bg-white/80 backdrop-blur-xl border border-slate-100 rounded-[2.5rem] h-20 shadow-2xl flex items-center justify-around px-4">
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Link
+                key={item.id}
+                to={item.path}
+                className={`flex flex-col items-center justify-center gap-1 transition-all ${
+                  isActive ? 'text-emerald-600 scale-110' : 'text-slate-400'
+                }`}
+              >
+                <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all ${isActive ? 'bg-emerald-50' : ''}`}>
+                  <span className="text-xl">{item.icon}</span>
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-widest">{item.label}</span>
+              </Link>
+            );
+          })}
+          <button className="flex flex-col items-center justify-center gap-1 text-slate-400">
+             <div className="w-10 h-10 flex items-center justify-center text-xl">🚪</div>
+             <span className="text-[10px] font-bold uppercase tracking-widest">Exit</span>
+          </button>
+        </div>
+      </nav>
+
       {/* Main Content Area */}
-      <main className="flex-1 ml-0 lg:ml-28 p-6 md:p-12 lg:p-20">
+      <main className="flex-1 ml-0 lg:ml-28 p-6 md:p-12 lg:p-20 pb-32 lg:pb-20">
         <header className="mb-16">
           <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-emerald-500 mb-2">Observatory Stats</h2>
           <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900">
