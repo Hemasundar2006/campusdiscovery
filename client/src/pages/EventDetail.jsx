@@ -121,25 +121,24 @@ export default function EventDetail() {
                   <label className='text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-500'>Venue Location</label>
                   <p className='text-lg font-semibold leading-tight'>{event.location?.address}</p>
                   
-                  {/* Google Maps Embed */}
-                  <div className="w-full h-48 rounded-2xl overflow-hidden border border-emerald-500/20">
+                  {/* Geoapify / OpenStreetMap Embed */}
+                  <div className="w-full h-48 rounded-2xl overflow-hidden border border-emerald-500/20 grayscale hover:grayscale-0 transition-all duration-700">
                     <iframe
                       width="100%"
                       height="100%"
                       frameBorder="0"
                       style={{ border: 0 }}
-                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyA8_YOUR_GOOGLE_MAPS_KEY_HERE&q=${encodeURIComponent(event.location?.address)}`}
-                      allowFullScreen
+                      src={`https://maps.geoapify.com/v1/staticmap?style=osm-bright-smooth&width=600&height=400&center=lonlat:${event.location?.coordinates?.coordinates[0] || 0},${event.location?.coordinates?.coordinates[1] || 0}&zoom=14&marker=lonlat:${event.location?.coordinates?.coordinates[0] || 0},${event.location?.coordinates?.coordinates[1] || 0};color:%2310b981;size:medium&apiKey=0e4c1fa8f2be4e238297215bb3e4bc0e`}
                     ></iframe>
                   </div>
 
                   <a 
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location?.address)}`}
+                    href={`https://www.openstreetmap.org/search?query=${encodeURIComponent(event.location?.address)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block text-center text-[10px] font-bold uppercase tracking-widest text-emerald-500 hover:text-white transition-colors border border-emerald-500/30 rounded-xl py-2"
                   >
-                    Open in Google Maps ↗
+                    View on OpenStreetMap ↗
                   </a>
                 </div>
 
