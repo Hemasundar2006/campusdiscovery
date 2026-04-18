@@ -110,7 +110,7 @@ export default function Register() {
           </div>
 
           <a 
-            href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/google`}
+            href={`${import.meta.env.VITE_API_URL || 'https://campusdiscovery.onrender.com/api'}/auth/google`}
             className='w-full flex items-center justify-center gap-4 bg-white border-2 border-gray-100 py-4 rounded-[2rem] font-bold hover:border-emerald-500 transition-all group'
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24">
