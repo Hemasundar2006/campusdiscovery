@@ -113,8 +113,15 @@ const updateProfile = async (req, res, next) => {
 
 const googleCallback = (req, res) => {
   const token = generateToken(req.user._id, req.user.role);
+  
+  // 1. Try to get the Frontend URL from Environment Variables
+  // 2. If missing, fall back to localhost (for testing)
+  // 3. MOST IMPORTANT: On Render, ensure this points to your FRONTEND URL (e.g. your Vercel or Render Static site)
   const clientUrl = (process.env.CLIENT_URL || 'http://localhost:5173').replace(/\/$/, '');
-  res.redirect(`${clientUrl}/auth/callback?token=${token}&role=${req.user.role}`);
+  
+  console.log(`Success! Redirecting user (${req.user.email}) to: ${clientUrl}`);
+  
+  return res.redirect(`${clientUrl}/auth/callback?token=${token}&role=${req.user.role}`);
 };
 
 module.exports = { register, login, getMe, updateProfile, googleCallback };
