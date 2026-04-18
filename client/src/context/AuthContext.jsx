@@ -15,8 +15,14 @@ export function AuthProvider({ children }) {
     }
 
     api.get('/auth/me')
-      .then((res) => setUser(res.data.user))
-      .catch(() => localStorage.removeItem('token'))
+      .then((res) => {
+        console.log('User synced:', res.data.user);
+        setUser(res.data.user);
+      })
+      .catch((err) => {
+        console.error('Failed to sync user:', err.response?.data?.error || err.message);
+        localStorage.removeItem('token');
+      })
       .finally(() => setLoading(false));
   }, []);
 

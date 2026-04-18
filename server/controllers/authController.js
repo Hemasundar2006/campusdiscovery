@@ -113,7 +113,9 @@ const updateProfile = async (req, res, next) => {
 
 const googleCallback = (req, res) => {
   const token = generateToken(req.user._id, req.user.role);
-  res.redirect(`${process.env.CLIENT_URL}/auth/callback?token=${token}`);
+  // Ensure we don't have double slashes if CLIENT_URL ends with one
+  const clientUrl = (process.env.CLIENT_URL || 'http://localhost:5173').replace(/\/$/, '');
+  res.redirect(`${clientUrl}/auth/callback?token=${token}`);
 };
 
 module.exports = { register, login, getMe, updateProfile, googleCallback };
