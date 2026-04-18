@@ -138,9 +138,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Native Ad Placement */}
-      <NativeAdBlock />
-
       {/* Hall of Fame - Infinite Marquee */}
       {achievements.length > 0 && (
         <section className="py-24 bg-white border-y border-slate-100 overflow-hidden relative">

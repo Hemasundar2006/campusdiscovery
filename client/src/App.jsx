@@ -72,7 +72,6 @@ export default function App() {
               </Routes>
             </Suspense>
           </main>
-          <LeaderboardAd />
           <Footer />
         </div>
       </BrowserRouter>
