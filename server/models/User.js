@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema(
     },
     googleId: { type: String, sparse: true },
     avatar: { type: String, default: '' },
-    role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    role: { type: String, enum: ['user', 'admin', 'student'], default: 'student' },
     bio: { type: String, maxlength: 300, default: '' },
     socialLinks: {
       instagram: { type: String, default: '' },
