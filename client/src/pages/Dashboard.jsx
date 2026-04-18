@@ -141,17 +141,60 @@ export default function Dashboard() {
             </motion.div>
           ) : (
             <motion.div key="manage" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }}>
-               <header className="mb-12"><h2 className="text-4xl font-semibold tracking-tight">Manage Your Broadcasts.</h2></header>
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {liveData.myEvents.map(evt => (
-                    <div key={evt._id} className="bg-white p-10 rounded-[3rem] border border-slate-100">
-                       <h4 className="text-xl font-bold mb-6">{evt.title}</h4>
-                       <div className="flex gap-4">
-                         <Link to={`/events/${evt._id}`} className="px-8 py-3 bg-slate-900 text-white rounded-full text-[10px] font-bold uppercase tracking-widest">View</Link>
-                         <button onClick={()=>handleDeleteEvent(evt._id)} className="px-8 py-3 bg-red-50 text-red-500 rounded-full text-[10px] font-bold uppercase tracking-widest">Delete</button>
-                       </div>
-                    </div>
-                  ))}
+               <header className="mb-12">
+                 <h2 className="text-4xl font-semibold tracking-tight">Activity <span className="text-emerald-600">Center</span></h2>
+                 <p className="text-slate-400 font-medium mt-2">Manage your events and track your participation.</p>
+               </header>
+               
+               <div className="space-y-16">
+                 {/* My Events Section */}
+                 <section>
+                    <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-sm">📡</span>
+                      My Broadcasts
+                    </h3>
+                    {liveData.myEvents.length > 0 ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {liveData.myEvents.map(evt => (
+                          <div key={evt._id} className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                             <h4 className="text-xl font-bold mb-6">{evt.title}</h4>
+                             <div className="flex gap-4">
+                               <Link to={`/events/${evt._id}`} className="px-8 py-3 bg-slate-900 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-emerald-600 transition-colors">View</Link>
+                               <button onClick={()=>handleDeleteEvent(evt._id)} className="px-8 py-3 bg-red-50 text-red-500 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-red-500 hover:text-white transition-colors">Delete</button>
+                             </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="bg-white rounded-[2.5rem] p-12 border border-slate-50 text-center">
+                         <p className="text-slate-400 font-medium mb-6">You haven't shared any events yet.</p>
+                         <Link to="/events/create" className="btn-primary py-3 px-8 text-sm inline-block">Post First Event</Link>
+                      </div>
+                    )}
+                 </section>
+
+                 {/* RSVPs Section */}
+                 <section>
+                    <h3 className="text-xl font-bold mb-6 flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center text-sm">🎯</span>
+                      My Participations
+                    </h3>
+                    {liveData.rsvps.length > 0 ? (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {liveData.rsvps.map(rsvp => (
+                          <div key={rsvp._id} className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm">
+                             <h4 className="text-xl font-bold mb-6">{rsvp.event?.title || 'Unknown Event'}</h4>
+                             <p className="text-slate-400 text-xs font-medium mb-6 uppercase tracking-widest">Confirmed Participant</p>
+                             <Link to={`/events/${rsvp.event?._id}`} className="px-8 py-3 bg-emerald-50 text-emerald-600 rounded-full text-[10px] font-bold uppercase tracking-widest inline-block">See Detail</Link>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="bg-white rounded-[2.5rem] p-12 border border-slate-50 text-center">
+                         <p className="text-slate-400 font-medium">No active participations found.</p>
+                      </div>
+                    )}
+                 </section>
                </div>
             </motion.div>
           )}
