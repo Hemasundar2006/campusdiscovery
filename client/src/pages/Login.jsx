@@ -96,8 +96,9 @@ export default function Login() {
             <div className="flex-1 h-px bg-gray-100" />
           </div>
 
-          <a 
-            href={`${import.meta.env.VITE_API_URL || 'https://campusdiscovery.onrender.com/api'}/auth/google`}
+          <button 
+            type="button"
+            onClick={() => window.location.href = `${import.meta.env.VITE_API_URL || 'https://campusdiscovery.onrender.com/api'}/auth/google`}
             className='w-full flex items-center justify-center gap-4 bg-white border-2 border-gray-100 py-4 rounded-[2rem] font-bold hover:border-emerald-500 transition-all group'
           >
             <svg className="w-6 h-6" viewBox="0 0 24 24">
@@ -107,7 +108,7 @@ export default function Login() {
               <path fill="#FBBC05" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.73-2.88c-1.1.74-2.5 1.18-4.2 1.18-3.23 0-5.97-2.18-6.95-5.11L1.64 20.64C3.57 24.42 7.46 27 12 27z" transform="scale(.888)"/>
             </svg>
             <span className='group-hover:text-emerald-600 transition-colors uppercase text-sm tracking-wider'>Continue with Google</span>
-          </a>
+          </button>
 
           <button 
             disabled={loading}
