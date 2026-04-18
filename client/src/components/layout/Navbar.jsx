@@ -31,13 +31,13 @@ export default function Navbar() {
               <Link 
                 key={link.path} 
                 to={link.path} 
-                className={link.primary ? 'btn-primary py-2 px-6' : 'text-slate-500 hover:text-emerald-600 transition-colors'}
+                className={link.primary ? 'btn-primary py-2 px-6' : 'text-slate-600 hover:text-emerald-700 transition-colors'}
               >
                 {link.label}
               </Link>
             ))}
             {user && (
-              <button onClick={logout} className='text-slate-400 hover:text-red-500 transition-colors'>Logout</button>
+              <button onClick={logout} className='text-slate-600 hover:text-red-600 transition-colors'>Logout</button>
             )}
           </div>
 
@@ -45,6 +45,9 @@ export default function Navbar() {
           <button 
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden flex flex-col gap-1.5 p-2"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
           >
             <motion.span animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 8 : 0 }} className="w-6 h-0.5 bg-slate-900 block" />
             <motion.span animate={{ opacity: isOpen ? 0 : 1 }} className="w-6 h-0.5 bg-slate-900 block" />
@@ -57,6 +60,10 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
@@ -73,7 +80,7 @@ export default function Navbar() {
                   <Link 
                     to={link.path} 
                     onClick={() => setIsOpen(false)}
-                    className="text-4xl font-bold tracking-tight hover:text-emerald-600 transition-all"
+                    className="text-4xl font-bold tracking-tight hover:text-emerald-600 transition-all text-slate-900"
                   >
                     {link.label}
                   </Link>

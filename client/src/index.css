@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -28,7 +26,7 @@ body {
   }
 
   .nav-link {
-    @apply text-slate-500 font-medium hover:text-emerald-600 transition-colors duration-200;
+    @apply text-slate-600 font-medium hover:text-emerald-700 transition-colors duration-200;
   }
 }
 

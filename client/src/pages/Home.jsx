@@ -17,7 +17,12 @@ const FeatureImage = ({ src, alt, delay }) => (
     className="relative group p-4 bg-white/50 backdrop-blur-md rounded-[2.5rem] border border-white/50 shadow-lg"
   >
     <div className="rounded-[2rem] overflow-hidden">
-      <img src={src} alt={alt || "College Event"} className="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-700" />
+      <img 
+        src={src} 
+        alt={alt || "College Event"} 
+        loading="lazy"
+        className="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-700" 
+      />
     </div>
   </motion.div>
 );
@@ -90,9 +95,9 @@ export default function Home() {
               Transforming Student Discovery
             </span>
             <h1 className="text-5xl md:text-8xl font-semibold leading-[1.1] tracking-tight text-slate-900 mb-10">
-              One platform. <br/><span className="text-emerald-600 italic">Every moment.</span>
+              One platform. <br/><span className="text-emerald-700 italic">Every moment.</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto mb-14 leading-relaxed font-medium">
+            <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-14 leading-relaxed font-medium">
               Join the elite campus hub where fests, achievements and students unite through high-performance discovery.
             </p>
           </motion.div>
@@ -104,6 +109,7 @@ export default function Home() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Find your next experience..."
+                aria-label="Search for events"
                 className="w-full px-8 py-5 rounded-[2rem] bg-white border border-slate-100 focus:border-emerald-500 focus:outline-none transition-all text-base shadow-sm font-medium"
               />
               <div className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-300">
@@ -157,9 +163,14 @@ export default function Home() {
                 <div key={i} className="flex-shrink-0 w-[400px] bg-slate-50 rounded-[3rem] p-10 border border-slate-100 group hover:border-emerald-500 hover:bg-white transition-all duration-500">
                    {ach.imageUrl && (
                      <div className="h-48 rounded-[2.5rem] overflow-hidden mb-6 relative">
-                       <img src={ach.imageUrl} alt={ach.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                       <img 
+                        src={ach.imageUrl} 
+                        alt={ach.title} 
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                       />
                        <div className="absolute top-4 left-4">
-                          <span className="px-4 py-1 bg-white/90 backdrop-blur-md text-emerald-600 text-[10px] font-bold uppercase rounded-full tracking-widest shadow-sm">
+                          <span className="px-4 py-1 bg-white/90 backdrop-blur-md text-emerald-700 text-[10px] font-bold uppercase rounded-full tracking-widest shadow-sm">
                             {ach.rank}
                           </span>
                        </div>
