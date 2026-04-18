@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import api from '../services/api.jsx';
 import EventGrid from '../components/events/EventGrid.jsx';
 
 const CATS = ['All', 'Academic', 'Social', 'Sports', 'Arts', 'Tech'];
 
-const FeatureImage = ({ src, delay, rotate }) => (
+const FeatureImage = ({ src, alt, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -15,7 +16,7 @@ const FeatureImage = ({ src, delay, rotate }) => (
     className="relative group p-4 bg-white/50 backdrop-blur-md rounded-[2.5rem] border border-white/50 shadow-lg"
   >
     <div className="rounded-[2rem] overflow-hidden">
-      <img src={src} alt="College Event" className="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-700" />
+      <img src={src} alt={alt || "College Event"} className="w-full h-72 object-cover group-hover:scale-110 transition-transform duration-700" />
     </div>
   </motion.div>
 );
@@ -60,14 +61,20 @@ export default function Home() {
 
   return (
     <div ref={containerRef} className="bg-[#f8fafc] overflow-hidden pt-32">
+      <Helmet>
+        <title>Home | CampusDiscovery - Connect & Explore Events</title>
+        <meta name="description" content="Welcome to CampusDiscovery. Find the most exciting college fests, academic seminars, and social gatherings happening on your campus right now." />
+        <link rel="canonical" href="https://campusdiscovery.vercel.app/" />
+      </Helmet>
+
       {/* Subtle Moving Background Text */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center overflow-hidden whitespace-nowrap opacity-[0.02] select-none">
-        <motion.h1 
+        <motion.div 
           style={{ x: textX }}
           className="text-[30rem] font-bold"
         >
           Campus Discovery Campus Discovery
-        </motion.h1>
+        </motion.div>
       </div>
 
       {/* Hero Section */}
@@ -117,9 +124,9 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <FeatureImage src="/events/concert.png" delay={0.1} />
-            <FeatureImage src="/events/tech.png" delay={0.3} />
-            <FeatureImage src="/events/sports.png" delay={0.5} />
+            <FeatureImage src="/events/concert.png" alt="Live college concert and music fest" delay={0.1} />
+            <FeatureImage src="/events/tech.png" alt="Technical seminar and coding competition" delay={0.3} />
+            <FeatureImage src="/events/sports.png" alt="Inter-college sports meet and athletics" delay={0.5} />
           </div>
         </div>
       </section>

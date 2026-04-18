@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /dashboard/edit/
+Disallow: /api/
+
+Sitemap: https://campusdiscovery.vercel.app/sitemap.xml

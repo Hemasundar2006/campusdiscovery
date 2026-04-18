@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import api from '../services/api.jsx';
 import { formatDate } from '../utils/formatDate.jsx';
 import CommentList from '../components/comments/CommentList.jsx';
@@ -42,6 +43,15 @@ export default function EventDetail() {
 
   return (
     <div className='bg-white text-black pt-32 pb-24'>
+      <Helmet>
+        <title>{`${event.title} | CampusDiscovery`}</title>
+        <meta name="description" content={event.description?.substring(0, 160) || "Explore details for this campus event."} />
+        <meta property="og:title" content={`${event.title} | CampusDiscovery`} />
+        <meta property="og:description" content={event.description?.substring(0, 160)} />
+        {event.imageUrl && <meta property="og:image" content={event.imageUrl} />}
+        <meta property="og:type" content="article" />
+        <link rel="canonical" href={`https://campusdiscovery.vercel.app/events/${id}`} />
+      </Helmet>
       <div className='max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-16'>
         
         {/* Main Content */}

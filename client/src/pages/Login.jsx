@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import useAuth from '../hooks/useAuth.jsx';
 
 export default function Login() {
@@ -31,6 +32,10 @@ export default function Login() {
 
   return (
     <div className='min-h-screen bg-white relative flex items-center justify-center px-6 overflow-hidden'>
+      <Helmet>
+        <title>Login | CampusDiscovery - Access Your Dashboard</title>
+        <meta name="description" content="Log in to your CampusDiscovery account to manage your events, track achievements, and connect with your campus community." />
+      </Helmet>
       {/* 3D Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div 

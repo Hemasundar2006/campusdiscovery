@@ -1,0 +1,16 @@
+{
+  "name": "CampusDiscovery",
+  "short_name": "CampusDiscovery",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "description": "Discover and manage campus events easily.",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
