@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import api from '../services/api.jsx';
 
 export default function CreateEvent() {
   const navigate = useNavigate();
+  const addressRef = useRef(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -16,6 +17,21 @@ export default function CreateEvent() {
   const [competitions, setCompetitions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (window.google && addressRef.current) {
+      const autocomplete = new window.google.maps.places.Autocomplete(addressRef.current, {
+        types: ['establishment', 'geocode'],
+      });
+
+      autocomplete.addListener('place_changed', () => {
+        const place = autocomplete.getPlace();
+        if (place.formatted_address) {
+          setFormData(prev => ({ ...prev, location: place.formatted_address }));
+        }
+      });
+    }
+  }, []);
 
   const addCompetition = () => {
     setCompetitions([...competitions, { name: '', description: '', prize: '', rules: '' }]);
@@ -120,9 +136,10 @@ export default function CreateEvent() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[11px] font-bold uppercase tracking-widest text-slate-400 ml-4">Location</label>
+                <label className="text-[11px] font-bold uppercase tracking_widest text-slate-400 ml-4">Venue Location</label>
                 <input 
                   type="text"
+                  ref={addressRef}
                   required
                   placeholder="Campus Venue / Lab / Ground"
                   className="w-full bg-slate-50 border border-slate-100 rounded-[1.5rem] px-8 py-5 focus:border-emerald-500 outline-none transition-all font-medium"
