@@ -7,10 +7,15 @@ export default function GoogleCallback() {
 
   useEffect(() => {
     const token = searchParams.get('token');
+    const role = searchParams.get('role');
+    
     if (token) {
       localStorage.setItem('token', token);
-      // Force a reload or use AuthContext to sync state
-      window.location.href = '/dashboard';
+      if (role === 'admin') {
+        window.location.href = '/admin';
+      } else {
+        window.location.href = '/dashboard';
+      }
     } else {
       navigate('/login');
     }
