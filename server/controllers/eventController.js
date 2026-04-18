@@ -216,6 +216,19 @@ const getMyEvents = async (req, res, next) => {
   }
 };
 
+const trackEventClick = async (req, res, next) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if (!event) return res.status(404).json({ success: false, error: 'Event not found' });
+
+    event.clickCount = (event.clickCount || 0) + 1;
+    await event.save();
+    return res.json({ success: true, clickCount: event.clickCount });
+  } catch (err) {
+    return next(err);
+  }
+};
+
 module.exports = {
   getEvents,
   getEventById,
@@ -223,4 +236,5 @@ module.exports = {
   updateEvent,
   deleteEvent,
   getMyEvents,
+  trackEventClick,
 };
