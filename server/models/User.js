@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       match: [/^\S+@\S+\.\S+$/, 'Invalid email format'],
     },
+    username: { type: String, sparse: true },
     password: {
       type: String,
       minlength: [6, 'Password must be at least 6 characters'],

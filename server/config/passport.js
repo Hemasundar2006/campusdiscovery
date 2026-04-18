@@ -41,6 +41,7 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
           user = await User.create({
             name: profile.displayName,
             email,
+            username: email, // satisfiies old DB index
             googleId: profile.id,
             avatar: profile.photos?.[0]?.value || '',
             role: isAdminEmail ? 'admin' : 'student',
