@@ -131,8 +131,18 @@ export default function CreateEvent() {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-[11px] font-bold uppercase tracking-widest text-slate-400 ml-4">Event Visual (Poster)</label>
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-widest text-slate-400 ml-4">External Registration Link</label>
+                <input 
+                  type="url"
+                  placeholder="https://forms.gle/... or official site"
+                  className="w-full bg-slate-50 border border-slate-100 rounded-[1.5rem] px-8 py-5 focus:border-emerald-500 outline-none transition-all font-medium"
+                  onChange={e => setFormData({ ...formData, externalLink: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-widest text-slate-400 ml-4">Event Visual (Poster)</label>
               <input 
                 type="file"
                 accept="image/*"

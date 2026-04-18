@@ -117,15 +117,48 @@ export default function EventDetail() {
                   <p className='text-2xl font-black'>{formatDate(event.date)}</p>
                 </div>
                 
-                <div className='space-y-2'>
-                  <label className='text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500'>Venue Location</label>
-                  <p className='text-xl font-bold'>{event.location?.address}</p>
+                <div className='space-y-4'>
+                  <label className='text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-500'>Venue Location</label>
+                  <p className='text-lg font-semibold leading-tight'>{event.location?.address}</p>
+                  
+                  {/* Google Maps Embed */}
+                  <div className="w-full h-48 rounded-2xl overflow-hidden border border-emerald-500/20">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      frameBorder="0"
+                      style={{ border: 0 }}
+                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyA8_YOUR_GOOGLE_MAPS_KEY_HERE&q=${encodeURIComponent(event.location?.address)}`}
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+
+                  <a 
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.location?.address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-center text-[10px] font-bold uppercase tracking-widest text-emerald-500 hover:text-white transition-colors border border-emerald-500/30 rounded-xl py-2"
+                  >
+                    Open in Google Maps ↗
+                  </a>
                 </div>
 
-                <div className='pt-6'>
-                   <button className='w-full bg-emerald-600 hover:bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest transition-all shadow-lg shadow-emerald-500/30'>
-                      Secure Spot (RSVP)
-                   </button>
+                <div className='pt-4'>
+                   {event.externalLink ? (
+                      <a 
+                        href={event.externalLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => api.post(`/events/${event._id}/click`)}
+                        className='block text-center w-full bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-xl font-bold uppercase tracking-widest transition-all shadow-lg shadow-emerald-500/10'
+                      >
+                        Register Now ↗
+                      </a>
+                   ) : (
+                      <button className='w-full bg-emerald-600 hover:bg-emerald-500 text-white py-4 rounded-xl font-bold uppercase tracking-widest transition-all shadow-lg shadow-emerald-500/10'>
+                        Secure Spot (RSVP)
+                      </button>
+                   )}
                 </div>
              </div>
 

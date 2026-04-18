@@ -8,6 +8,7 @@ const {
   updateEvent,
   deleteEvent,
   getMyEvents,
+  trackEventClick,
 } = require('../controllers/eventController');
 
 const router = express.Router();
@@ -17,6 +18,7 @@ router.get('/my', protect, getMyEvents);
 router.get('/:id', getEventById);
 router.post('/', protect, upload.single('image'), createEvent);
 router.put('/:id', protect, upload.single('image'), updateEvent);
+router.post('/:id/click', trackEventClick);
 router.delete('/:id', protect, deleteEvent);
 
 module.exports = router;

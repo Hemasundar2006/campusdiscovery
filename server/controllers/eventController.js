@@ -101,6 +101,7 @@ const createEvent = async (req, res, next) => {
       imageUrl,
       imagePath,
       category,
+      externalLink: req.body.externalLink || '',
       tags: tags ? JSON.parse(tags) : [],
       competitions: competitions ? JSON.parse(competitions) : [],
       maxAttendees: maxAttendees || 0,
@@ -139,6 +140,7 @@ const updateEvent = async (req, res, next) => {
       'contactEmail',
       'isCancelled',
       'competitions',
+      'externalLink',
     ];
 
     fields.forEach((field) => {

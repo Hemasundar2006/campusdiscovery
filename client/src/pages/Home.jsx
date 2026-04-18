@@ -124,36 +124,52 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Hall of Fame */}
+      {/* Hall of Fame - Infinite Marquee */}
       {achievements.length > 0 && (
-        <section className="py-32 px-6 bg-white border-y border-slate-100">
-          <div className="max-w-7xl mx-auto">
-             <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div>
-                  <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">Hall of <span className="text-emerald-600 italic">Fame</span></h2>
-                  <p className="text-slate-400 font-medium mt-3">The record of our community victories.</p>
-                </div>
-                <Link to="/achievements/post" className="btn-primary">Post Victory</Link>
-             </div>
-             
-             <div className="flex overflow-x-auto gap-8 pb-12 scrollbar-hide">
-               {achievements.map((ach) => (
-                 <div key={ach._id} className="flex-shrink-0 w-80 bg-slate-50 rounded-[3rem] p-10 border border-transparent hover:border-emerald-200 hover:bg-white transition-all duration-500">
-                    <div className="flex items-center gap-2 mb-6">
-                       <span className="px-4 py-1 bg-emerald-100 text-emerald-700 text-[11px] font-bold uppercase rounded-full tracking-wider">{ach.rank}</span>
-                    </div>
-                    <h3 className="text-xl font-bold tracking-tight mb-4">{ach.title}</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed mb-8">{ach.description}</p>
-                    <div className="flex items-center gap-4">
-                       <img src={ach.user?.avatar || `https://ui-avatars.com/api/?name=${ach.user?.name}`} className="w-10 h-10 rounded-full object-cover" />
-                       <div>
-                          <p className="text-xs font-bold text-slate-800">{ach.user?.name}</p>
-                          <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">{ach.event?.title}</p>
+        <section className="py-24 bg-white border-y border-slate-100 overflow-hidden relative">
+          <div className="max-w-7xl mx-auto px-6 mb-16">
+             <h2 className="text-3xl md:text-5xl font-semibold tracking-tight">The <span className="text-emerald-600 italic">Hall of Fame</span></h2>
+             <p className="text-slate-400 font-medium mt-3 uppercase text-[10px] tracking-[0.3em]">Celebrating live campus victories</p>
+          </div>
+
+          <div className="flex relative">
+            <motion.div 
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ 
+                duration: 50, 
+                repeat: Infinity, 
+                ease: "linear" 
+              }}
+              className="flex gap-8 whitespace-nowrap"
+            >
+              {[...achievements, ...achievements].map((ach, i) => (
+                <div key={i} className="flex-shrink-0 w-[400px] bg-slate-50 rounded-[3rem] p-10 border border-slate-100 group hover:border-emerald-500 hover:bg-white transition-all duration-500">
+                   {ach.imageUrl && (
+                     <div className="h-48 rounded-[2.5rem] overflow-hidden mb-6 relative">
+                       <img src={ach.imageUrl} alt={ach.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                       <div className="absolute top-4 left-4">
+                          <span className="px-4 py-1 bg-white/90 backdrop-blur-md text-emerald-600 text-[10px] font-bold uppercase rounded-full tracking-widest shadow-sm">
+                            {ach.rank}
+                          </span>
                        </div>
-                    </div>
-                 </div>
-               ))}
-             </div>
+                     </div>
+                   )}
+                   <h3 className="text-xl font-bold tracking-tight mb-3 whitespace-normal">{ach.title}</h3>
+                   <p className="text-slate-500 text-sm leading-relaxed mb-8 whitespace-normal line-clamp-2">{ach.description}</p>
+                   
+                   <div className="flex items-center gap-4">
+                      <img 
+                        src={ach.user?.avatar || `https://ui-avatars.com/api/?name=${ach.user?.name}`} 
+                        className="w-10 h-10 rounded-full border-2 border-white shadow-md object-cover" 
+                      />
+                      <div>
+                         <p className="text-xs font-bold text-slate-800">{ach.user?.name}</p>
+                         <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-widest">{ach.event?.title}</p>
+                      </div>
+                   </div>
+                </div>
+              ))}
+            </motion.div>
           </div>
         </section>
       )}

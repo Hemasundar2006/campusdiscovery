@@ -43,6 +43,8 @@ const eventSchema = new mongoose.Schema(
     isPublished: { type: Boolean, default: true },
     isCancelled: { type: Boolean, default: false },
     contactEmail: { type: String, default: '' },
+    externalLink: { type: String, default: '' },
+    clickCount: { type: Number, default: 0 },
     competitions: [
       {
         name: { type: String, required: true },
