@@ -1,9 +1,11 @@
 import { useAuthContext } from '../context/AuthContext.jsx';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function Dashboard() {
   const { user } = useAuthContext();
+  const [activeTab, setActiveTab] = useState('overview');
 
   if (!user) return (
     <div className="min-h-screen flex items-center justify-center">
@@ -11,90 +13,117 @@ export default function Dashboard() {
     </div>
   );
 
+  const stats = [
+    { label: 'Events', value: '12', icon: '🎯' },
+    { label: 'Wins', value: '03', icon: '🏆' },
+    { label: 'RSVPs', value: '08', icon: '📫' },
+  ];
+
   return (
-    <div className="min-h-screen bg-white py-24 px-6 md:px-12 relative overflow-hidden">
-      {/* 3D Background Decor */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-50 rounded-full blur-3xl opacity-50 -mr-48 -mt-48" />
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col md:flex-row items-center gap-8 mb-16"
-        >
-          <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-black rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-            <img 
-              src={user.avatar || `https://ui-avatars.com/api/?name=${user.name}&background=10b981&color=fff`} 
-              alt={user.name} 
-              className="relative w-32 h-32 rounded-full border-4 border-white shadow-2xl object-cover"
-            />
-          </div>
-          <div className="text-center md:text-left">
-            <h1 className="text-5xl font-black uppercase tracking-tighter mb-2">
-              Hello, <span className="text-emerald-600">{user.name.split(' ')[0]}</span>
-            </h1>
-            <p className="text-gray-500 font-bold uppercase tracking-widest text-sm flex items-center justify-center md:justify-start gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              {user.role} Account • {user.email}
-            </p>
-          </div>
-          <div className="md:ml-auto flex gap-4">
-             <Link to="/achievements/post" className="btn-primary py-4 px-8 text-sm uppercase tracking-widest">
-               Post Victory
-             </Link>
-          </div>
-        </motion.div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Activity Stast */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1 }}
-            className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6"
-          >
-            {[
-              { label: 'Event Participations', value: '12', icon: '🎯' },
-              { label: 'Wins Recorded', value: '03', icon: '🏆' },
-              { label: 'Fest RSVPs', value: '08', icon: '📫' },
-              { label: 'Discovery Points', value: '250', icon: '⚡' },
-            ].map((stat, i) => (
-              <div key={i} className="bg-white border-2 border-gray-100 p-8 rounded-[2.5rem] hover:border-emerald-500 transition-all hover:shadow-2xl hover:shadow-emerald-500/10 group">
-                <span className="text-4xl mb-4 block group-hover:scale-125 transition-transform duration-500">{stat.icon}</span>
-                <p className="text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1">{stat.label}</p>
-                <p className="text-4xl font-black tracking-tighter">{stat.value}</p>
-              </div>
-            ))}
-          </motion.div>
-
-          {/* Sidebar Info */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-            className="space-y-6"
-          >
-            <div className="bg-black p-10 rounded-[3rem] text-white overflow-hidden relative group">
-              <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-emerald-500/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-1000" />
-              <h2 className="text-xl font-black uppercase tracking-widest mb-6 relative z-10">Campus Bio</h2>
-              <p className="text-gray-400 leading-relaxed font-medium relative z-10 italic">
-                "{user.bio || 'Representing my campus with excellence and discovery. Passionate about tech fests and networking.'}"
-              </p>
-              <button className="mt-8 text-emerald-400 text-xs font-black uppercase tracking-widest hover:text-white transition-colors">Edit Profile →</button>
-            </div>
-
-            <div className="bg-gray-50 p-10 rounded-[3rem] border-2 border-dashed border-gray-200">
-               <h2 className="text-xl font-black uppercase tracking-widest mb-4">Quick Links</h2>
-               <div className="space-y-4">
-                 <Link to="/" className="block text-sm font-bold text-gray-600 hover:text-emerald-600">→ Browse Active Fests</Link>
-                 <Link to="/achievements/post" className="block text-sm font-bold text-gray-600 hover:text-emerald-600">→ Submit Achievement</Link>
-                 <a href="#" className="block text-sm font-bold text-gray-600 hover:text-emerald-600">→ Manage My RSVPs</a>
-               </div>
-            </div>
-          </motion.div>
+    <div className="min-h-screen bg-[#fcfcfc] flex">
+      {/* Side Navigation */}
+      <motion.aside 
+        initial={{ x: -100 }}
+        animate={{ x: 0 }}
+        className="w-80 bg-white border-r border-gray-100 hidden lg:flex flex-col p-10 pt-32 fixed inset-y-0"
+      >
+        <div className="space-y-2">
+          {[
+            { id: 'overview', label: 'Overview', icon: '🏠' },
+            { id: 'events', label: 'My events', icon: '✨' },
+            { id: 'achievements', label: 'Victories', icon: '👑' },
+            { id: 'settings', label: 'Account Settings', icon: '⚙️', link: '/profile/edit' },
+          ].map((item) => (
+            item.link ? (
+              <Link
+                key={item.id}
+                to={item.link}
+                className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-gray-400 font-bold uppercase text-[10px] tracking-widest hover:bg-gray-50 transition-all"
+              >
+                <span>{item.icon}</span>
+                {item.label}
+              </Link>
+            ) : (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`w-full flex items-center gap-4 px-6 py-4 rounded-2xl font-bold uppercase text-[10px] tracking-widest transition-all ${
+                  activeTab === item.id ? 'bg-black text-white shadow-xl shadow-black/20' : 'text-gray-400 hover:bg-gray-50'
+                }`}
+              >
+                <span>{item.icon}</span>
+                {item.label}
+              </button>
+            )
+          ))}
         </div>
-      </div>
+
+        <div className="mt-auto">
+          <div className="bg-emerald-50 p-6 rounded-[2rem]">
+             <p className="text-[10px] font-black uppercase text-emerald-600 mb-2">Campus Pro</p>
+             <p className="text-xs font-bold text-emerald-900 leading-relaxed">Upgrade to host unlimited fests.</p>
+          </div>
+        </div>
+      </motion.aside>
+
+      {/* Main Content Area */}
+      <main className="flex-1 lg:ml-80 p-8 lg:p-20 pt-32">
+        <header className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+          <div>
+            <h2 className="text-sm font-black uppercase tracking-[0.3em] text-emerald-600 mb-4">Command Center</h2>
+            <h1 className="text-6xl font-black tracking-tighter uppercase italic">{user.name.split(' ')[0]}<span className="text-gray-200">.</span></h1>
+          </div>
+          <div className="flex gap-4">
+            <Link to="/achievements/post" className="bg-black text-white px-8 py-5 rounded-full text-xs font-black uppercase tracking-widest hover:scale-105 transition-all">Submit Win</Link>
+          </div>
+        </header>
+
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          {stats.map((s, i) => (
+             <div key={i} className="bg-white rounded-[3rem] p-10 border border-gray-100 relative overflow-hidden group shadow-sm hover:shadow-2xl transition-all">
+                <div className="absolute top-0 right-0 p-8 text-4xl opacity-20 group-hover:opacity-100 transition-opacity">{s.icon}</div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">{s.label}</p>
+                <p className="text-5xl font-black tracking-tighter">{s.value}</p>
+             </div>
+          ))}
+        </section>
+
+        <section className="grid grid-cols-1 xl:grid-cols-2 gap-12">
+          {/* Recent Activity Card */}
+          <div className="bg-white rounded-[3.5rem] p-12 shadow-sm border border-gray-50">
+             <div className="flex justify-between items-center mb-10">
+                <h3 className="text-xl font-black uppercase tracking-tighter italic">Recent Discovery</h3>
+                <span className="text-[10px] font-black text-emerald-500 uppercase">Live Feed</span>
+             </div>
+             
+             <div className="space-y-8">
+                {[1, 2, 3].map((item) => (
+                  <div key={item} className="flex items-center gap-6 group cursor-pointer">
+                    <div className="w-14 h-14 rounded-2xl bg-gray-50 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-all text-2xl">🎪</div>
+                    <div>
+                      <h4 className="font-bold text-gray-800">TechnoFest 2024</h4>
+                      <p className="text-xs font-medium text-gray-400 uppercase tracking-widest">RSVP Confirmed • 2h ago</p>
+                    </div>
+                  </div>
+                ))}
+             </div>
+          </div>
+
+          {/* User Bio Card */}
+          <div className="bg-emerald-600 rounded-[4rem] p-12 text-white relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-12 text-9xl opacity-10 pointer-events-none">✨</div>
+             <div className="relative z-10">
+                <h3 className="text-xl font-black uppercase tracking-tighter italic mb-8">My Legacy</h3>
+                <p className="text-emerald-100 text-lg font-medium leading-relaxed mb-10 italic">
+                  "{user.bio || 'Building a campus experience redefined by technology and community discovery.'}"
+                </p>
+                <div className="flex gap-4">
+                  <Link to="/profile/edit" className="bg-white text-emerald-600 px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-widest">Edit Profile</Link>
+                </div>
+             </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }

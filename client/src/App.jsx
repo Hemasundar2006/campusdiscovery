@@ -14,6 +14,7 @@ import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import PostAchievement from './pages/PostAchievement.jsx';
 import GoogleCallback from './pages/GoogleCallback.jsx';
+import EditProfile from './pages/EditProfile.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 export default function App() {
@@ -47,6 +48,10 @@ export default function App() {
               <Route
                 path='/achievements/post'
                 element={<ProtectedRoute><PostAchievement /></ProtectedRoute>}
+              />
+              <Route
+                path='/profile/edit'
+                element={<ProtectedRoute><EditProfile /></ProtectedRoute>}
               />
               <Route path='/auth/callback' element={<GoogleCallback />} />
               <Route path='*' element={<NotFound />} />
