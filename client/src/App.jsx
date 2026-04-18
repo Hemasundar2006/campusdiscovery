@@ -4,6 +4,7 @@ import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import AdminRoute from './routes/AdminRoute.jsx';
 import Navbar from './components/layout/Navbar.jsx';
 import Footer from './components/layout/Footer.jsx';
+import LeaderboardAd from './components/ads/LeaderboardAd.jsx';
 import Home from './pages/Home.jsx';
 import EventDetail from './pages/EventDetail.jsx';
 import CreateEvent from './pages/CreateEvent.jsx';
@@ -59,6 +60,7 @@ export default function App() {
               <Route path='*' element={<NotFound />} />
             </Routes>
           </main>
+          <LeaderboardAd />
           <Footer />
         </div>
       </BrowserRouter>

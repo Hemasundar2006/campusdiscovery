@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import api from '../services/api.jsx';
 import EventGrid from '../components/events/EventGrid.jsx';
+import NativeAdBlock from '../components/ads/NativeAdBlock.jsx';
 
 const CATS = ['All', 'Academic', 'Social', 'Sports', 'Arts', 'Tech'];
 
@@ -130,6 +131,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Native Ad Placement */}
+      <NativeAdBlock />
 
       {/* Hall of Fame - Infinite Marquee */}
       {achievements.length > 0 && (
