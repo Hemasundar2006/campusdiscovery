@@ -4,7 +4,7 @@ export default function NativeAdBlock() {
   useEffect(() => {
     // Only load the script once the component mounts
     const script = document.createElement('script');
-    script.src = 'https://pl29185377.profitablecpmratenetwork.com/6fd0506de92d836436bd59c32fdb54c5/invoke.js';
+    script.src = 'https://motortape.com/6fd0506de92d836436bd59c32fdb54c5/invoke.js';
     script.async = true;
     script.setAttribute('data-cfasync', 'false');
     
