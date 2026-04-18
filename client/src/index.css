@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #059669; /* Emerald 600 */
+    --primary-dark: #064e3b; /* Emerald 900 */
+    --accent: #10b981; /* Emerald 500 */
+    --background: #ffffff;
+    --foreground: #000000;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--foreground);
+    background-color: var(--background);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-black font-black;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-emerald-600 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 hover:bg-emerald-700 hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/20;
+  }
+  
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-gray-200 shadow-xl rounded-2xl;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}
+
+/* Custom 3D animations */
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(2deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes scroll-text {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-text {
+  animation: scroll-text 20s linear infinite;
+}
