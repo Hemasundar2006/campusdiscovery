@@ -88,9 +88,9 @@ export default function Dashboard() {
               <div className="w-14 flex items-center justify-center text-xl">🛡️</div>
               {isHovered && <span className="font-bold text-[11px] uppercase tracking-widest">Control</span>}
            </button>
-           <Link to="/achievements/post" className="w-full h-14 rounded-2xl flex items-center text-slate-400 hover:bg-slate-50 transition-all">
-              <div className="w-14 flex items-center justify-center text-xl">👑</div>
-              {isHovered && <span className="font-bold text-[11px] uppercase tracking-widest">Victories</span>}
+           <Link to="/admin-login" className="w-full h-14 rounded-2xl flex items-center text-slate-200 hover:text-emerald-500 transition-all group">
+              <div className="w-14 flex items-center justify-center text-xl">🛡️</div>
+              {isHovered && <span className="font-bold text-[9px] uppercase tracking-[0.2em] opacity-40 group-hover:opacity-100 transition-opacity">Staff Portal</span>}
            </Link>
         </div>
       </motion.aside>
