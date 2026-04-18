@@ -19,17 +19,36 @@ export default function CreateEvent() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (window.google && addressRef.current) {
-      const autocomplete = new window.google.maps.places.Autocomplete(addressRef.current, {
-        types: ['establishment', 'geocode'],
-      });
+    const initAutocomplete = () => {
+      if (window.google && addressRef.current) {
+        const autocomplete = new window.google.maps.places.Autocomplete(addressRef.current, {
+          types: ['establishment', 'geocode'],
+        });
 
-      autocomplete.addListener('place_changed', () => {
-        const place = autocomplete.getPlace();
-        if (place.formatted_address) {
-          setFormData(prev => ({ ...prev, location: place.formatted_address }));
+        autocomplete.addListener('place_changed', () => {
+          const place = autocomplete.getPlace();
+          if (place.formatted_address) {
+            setFormData(prev => ({ ...prev, location: place.formatted_address }));
+          }
+        });
+      }
+    };
+
+    // Try immediately
+    if (window.google) {
+      initAutocomplete();
+    } else {
+      // Fallback: Check every 500ms for 5 seconds
+      let attempts = 0;
+      const interval = setInterval(() => {
+        attempts++;
+        if (window.google) {
+          initAutocomplete();
+          clearInterval(interval);
         }
-      });
+        if (attempts > 10) clearInterval(interval);
+      }, 500);
+      return () => clearInterval(interval);
     }
   }, []);
 
