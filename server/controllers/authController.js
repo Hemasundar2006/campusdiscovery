@@ -92,7 +92,7 @@ const getMe = async (req, res, next) => {
 
 const updateProfile = async (req, res, next) => {
   try {
-    const allowed = ['name', 'bio', 'socialLinks'];
+    const allowed = ['name', 'bio', 'socialLinks', 'avatar'];
     const updates = {};
 
     allowed.forEach((field) => {

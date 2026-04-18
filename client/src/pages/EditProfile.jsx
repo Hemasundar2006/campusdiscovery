@@ -10,6 +10,7 @@ export default function EditProfile() {
   const [formData, setFormData] = useState({
     name: '',
     bio: '',
+    avatar: '',
     socialLinks: {
       instagram: '',
       linkedin: '',
@@ -25,6 +26,7 @@ export default function EditProfile() {
       setFormData({
         name: user.name || '',
         bio: user.bio || '',
+        avatar: user.avatar || '',
         socialLinks: {
           instagram: user.socialLinks?.instagram || '',
           linkedin: user.socialLinks?.linkedin || '',
@@ -69,6 +71,16 @@ export default function EditProfile() {
         {success && <div className="p-4 bg-emerald-50 text-emerald-600 rounded-2xl mb-8 font-bold text-sm border border-emerald-100">Profile updated successfully!</div>}
 
         <form onSubmit={handleSubmit} className="space-y-10">
+          <div className="space-y-2">
+            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Profile Image URL</label>
+            <input 
+              value={formData.avatar}
+              onChange={(e) => setFormData({...formData, avatar: e.target.value})}
+              className="w-full bg-gray-50 border-2 border-gray-100 rounded-[2rem] px-8 py-5 focus:border-emerald-500 outline-none transition-all font-bold"
+              placeholder="https://image-link.com/photo.jpg"
+            />
+          </div>
+
           <div className="space-y-2">
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-4">Full Identity</label>
             <input 

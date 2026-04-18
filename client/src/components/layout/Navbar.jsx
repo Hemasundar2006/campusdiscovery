@@ -9,34 +9,35 @@ export default function Navbar() {
 
   const navLinks = user ? [
     { label: 'Dashboard', path: '/dashboard' },
-    { label: 'Achievements', path: '/achievements/post' },
+    { label: 'Hall of Fame', path: '/' },
     ...(user.role === 'admin' ? [{ label: 'Admin', path: '/admin' }] : []),
   ] : [
-    { label: 'Login', path: '/login' },
-    { label: 'Register', path: '/register', primary: true },
+    { label: 'Marketplace', path: '/' },
+    { label: 'Sign In', path: '/login' },
+    { label: 'Get Started', path: '/register', primary: true },
   ];
 
   return (
     <>
-      <header className='fixed top-0 left-0 right-0 z-[100] bg-white/70 backdrop-blur-xl border-b border-gray-100'>
-        <nav className='max-w-7xl mx-auto px-6 py-4 flex items-center justify-between'>
-          <Link to='/' className='text-xl lg:text-2xl font-black tracking-tighter text-black'>
-            CAMPUS<span className='text-emerald-600'>DISCOVERY</span>
+      <header className='fixed top-0 left-0 right-0 z-[100] bg-white/80 backdrop-blur-xl border-b border-slate-100'>
+        <nav className='max-w-7xl mx-auto px-6 py-5 flex items-center justify-between'>
+          <Link to='/' className='text-2xl font-bold tracking-tight text-slate-900'>
+            Campus<span className='text-emerald-600 font-light'>Discovery</span>
           </Link>
 
           {/* Desktop Nav */}
-          <div className='hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest'>
+          <div className='hidden md:flex items-center gap-10 text-[13px] font-semibold tracking-wide'>
             {navLinks.map((link) => (
               <Link 
                 key={link.path} 
                 to={link.path} 
-                className={link.primary ? 'px-6 py-2 rounded-full bg-emerald-600 text-white shadow-lg shadow-emerald-500/20' : 'text-gray-900 hover:text-emerald-600 transition-colors'}
+                className={link.primary ? 'btn-primary py-2 px-6' : 'text-slate-500 hover:text-emerald-600 transition-colors'}
               >
                 {link.label}
               </Link>
             ))}
             {user && (
-              <button onClick={logout} className='text-red-500 hover:tracking-[0.2em] transition-all'>Logout</button>
+              <button onClick={logout} className='text-slate-400 hover:text-red-500 transition-colors'>Logout</button>
             )}
           </div>
 
@@ -45,9 +46,9 @@ export default function Navbar() {
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden flex flex-col gap-1.5 p-2"
           >
-            <motion.span animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 8 : 0 }} className="w-6 h-0.5 bg-black block" />
-            <motion.span animate={{ opacity: isOpen ? 0 : 1 }} className="w-6 h-0.5 bg-black block" />
-            <motion.span animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -8 : 0 }} className="w-6 h-0.5 bg-black block" />
+            <motion.span animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 8 : 0 }} className="w-6 h-0.5 bg-slate-900 block" />
+            <motion.span animate={{ opacity: isOpen ? 0 : 1 }} className="w-6 h-0.5 bg-slate-900 block" />
+            <motion.span animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -8 : 0 }} className="w-6 h-0.5 bg-slate-900 block" />
           </button>
         </nav>
       </header>
@@ -56,42 +57,31 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-[90] bg-white pt-32 px-10 md:hidden"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="fixed inset-0 z-[90] bg-white/98 backdrop-blur-2xl flex items-center justify-center md:hidden"
           >
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-10 text-center">
               {navLinks.map((link, i) => (
                 <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   key={link.path}
                 >
                   <Link 
                     to={link.path} 
                     onClick={() => setIsOpen(false)}
-                    className="text-4xl font-black uppercase tracking-tighter italic hover:text-emerald-600 transition-all"
+                    className="text-4xl font-bold tracking-tight hover:text-emerald-600 transition-all"
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
               {user && (
-                <motion.button
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  onClick={() => { logout(); setIsOpen(false); }}
-                  className="text-red-500 text-left text-xl font-black uppercase tracking-widest mt-4"
-                >
-                  Logout
-                </motion.button>
+                <button onClick={() => { logout(); setIsOpen(false); }} className="text-red-500 font-bold text-xl">Sign Out</button>
               )}
-            </div>
-            
-            <div className="absolute bottom-20 left-10">
-              <p className="text-[10px] font-black uppercase tracking-[0.5em] text-gray-300">© 2026 Discovery</p>
             </div>
           </motion.div>
         )}
