@@ -16,7 +16,7 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
           let user = await User.findOne({ googleId: profile.id });
           
           const email = profile.emails?.[0]?.value;
-          const isAdminEmail = email === 'marotinani06@gmail.com';
+          const isAdminEmail = email === 'nagarjunafamilypk@gmail.com';
 
           // 2. If user exists by Google ID, ensure admin role if email matches
           if (user) {
