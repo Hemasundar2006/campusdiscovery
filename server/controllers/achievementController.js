@@ -6,7 +6,10 @@ const buildImageUrl = (req, filename) =>
 
 const getAchievements = async (req, res, next) => {
   try {
-    const achievements = await Achievement.find()
+    const filter = {};
+    if (req.query.user) filter.user = req.query.user;
+
+    const achievements = await Achievement.find(filter)
       .populate('user', 'name avatar')
       .populate('event', 'title')
       .sort({ createdAt: -1 });

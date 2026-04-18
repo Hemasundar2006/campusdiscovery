@@ -15,6 +15,7 @@ import Register from './pages/Register.jsx';
 import PostAchievement from './pages/PostAchievement.jsx';
 import GoogleCallback from './pages/GoogleCallback.jsx';
 import EditProfile from './pages/EditProfile.jsx';
+import AdminLogin from './pages/AdminLogin.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
               <Route path='/' element={<Home />} />
               <Route path='/events/:id' element={<EventDetail />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/admin-login' element={<AdminLogin />} />
               <Route path='/register' element={<Register />} />
               <Route
                 path='/events/create'
