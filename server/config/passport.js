@@ -12,23 +12,38 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
       },
       async (_accessToken, _refreshToken, profile, done) => {
         try {
+          // 1. Try to find user by Google ID
           let user = await User.findOne({ googleId: profile.id });
-          if (user) return done(null, user);
-
+          
           const email = profile.emails?.[0]?.value;
+          const isAdminEmail = email === 'marotinani06@gmail.com';
+
+          // 2. If user exists by Google ID, ensure admin role if email matches
+          if (user) {
+            if (isAdminEmail && user.role !== 'admin') {
+              user.role = 'admin';
+              await user.save();
+            }
+            return done(null, user);
+          }
+
+          // 3. Try to find user by Email (if signing in with Google for the first time)
           user = await User.findOne({ email });
           if (user) {
             user.googleId = profile.id;
             if (!user.avatar) user.avatar = profile.photos?.[0]?.value || '';
+            if (isAdminEmail) user.role = 'admin';
             await user.save();
             return done(null, user);
           }
 
+          // 4. Register new user
           user = await User.create({
             name: profile.displayName,
             email,
             googleId: profile.id,
             avatar: profile.photos?.[0]?.value || '',
+            role: isAdminEmail ? 'admin' : 'student',
           });
 
           return done(null, user);
