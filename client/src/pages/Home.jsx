@@ -95,7 +95,7 @@ export default function Home() {
             playsInline
             className="w-full h-full object-cover opacity-60"
           >
-            <source src="https://player.vimeo.com/external/370331493.sd.mp4?s=7b346960f2fc170f3f2081534017a54a01c8ed31&profile_id=139&oauth2_token_id=57447761" type="video/mp4" />
+            <source src="/15359728_3840_2160_30fps.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc]/40 via-transparent to-[#f8fafc]" />
         </div>
