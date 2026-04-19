@@ -33,6 +33,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [cat, setCat] = useState('All');
   const [search, setSearch] = useState('');
+  const [error, setError] = useState(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -52,7 +53,8 @@ export default function Home() {
         const { data } = await api.get('/events', { params });
         setEvents(data.events || []);
       } catch (err) {
-        console.error('Failed to load events.');
+        console.error('Failed to load events.', err);
+        setError('Could not connect to the campus hub. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -217,8 +219,16 @@ export default function Home() {
               <div className="flex flex-col items-center justify-center py-20">
                 <div className="w-10 h-10 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
               </div>
-            ) : (
+            ) : error ? (
+              <div className="text-center py-20 bg-red-50 rounded-[2rem] border border-red-100">
+                <p className="text-red-600 font-bold">{error}</p>
+              </div>
+            ) : events.length > 0 ? (
               <EventGrid events={events} />
+            ) : (
+              <div className="text-center py-20 bg-slate-50 rounded-[2rem] border border-slate-100 italic text-slate-400">
+                No upcoming events found for this category.
+              </div>
             )}
           </div>
         </div>
