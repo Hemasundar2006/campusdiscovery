@@ -25,8 +25,8 @@ export default function LeaderboardAd() {
       invokeScript.type = 'text/javascript';
       invokeScript.src = 'https://motortape.com/0e4fe57ddd168eb35858c90c7af13a2e/invoke.js';
 
-      adRef.current.style.width = \`${width}px\`;
-      adRef.current.style.height = \`${height}px\`;
+      adRef.current.style.width = `${width}px`;
+      adRef.current.style.height = `${height}px`;
       adRef.current.appendChild(confScript);
       adRef.current.appendChild(invokeScript);
     }
