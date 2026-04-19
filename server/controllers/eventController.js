@@ -13,7 +13,8 @@ const getEvents = async (req, res, next) => {
     const filter = { isPublished: true, isCancelled: false };
 
     if (req.query.category) filter.category = req.query.category.toLowerCase();
-    if (!req.query.past) filter.date = { $gte: new Date() };
+    // Show all events regardless of date by default
+    if (req.query.upcoming === 'true') filter.date = { $gte: new Date() };
     if (req.query.search) filter.$text = { $search: req.query.search };
 
     const [events, total] = await Promise.all([
