@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import api from '../services/api.jsx';
 import { formatDate } from '../utils/formatDate.jsx';
+import { useAuthContext } from '../context/AuthContext.jsx';
 import CommentList from '../components/comments/CommentList.jsx';
 
 export default function EventDetail() {
@@ -11,6 +12,9 @@ export default function EventDetail() {
   const [event, setEvent] = useState(null);
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useAuthContext();
+
+  const isOrganiser = user && event && event.organiser && (user._id === event.organiser._id || user._id === event.organiser);
 
   useEffect(() => {
     setLoading(true);
@@ -65,10 +69,18 @@ export default function EventDetail() {
                <span className='px-4 py-1 bg-emerald-100 text-emerald-700 text-xs font-black uppercase tracking-widest rounded-full'>
                  {event.category}
                </span>
-               <span className='text-gray-400 font-bold text-sm uppercase'>
-                 Posted by {event.organiser?.name || 'Anonymous'}
-               </span>
-            </div>
+                <span className='text-gray-400 font-bold text-sm uppercase'>
+                  Posted by {event.organiser?.name || 'Anonymous'}
+                </span>
+                {isOrganiser && (
+                  <Link 
+                    to={`/events/${id}/edit`} 
+                    className='ml-auto px-6 py-2 bg-slate-900 text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-emerald-600 transition-all'
+                  >
+                    Edit Event
+                  </Link>
+                )}
+             </div>
             <h1 className='text-5xl md:text-7xl font-black uppercase tracking-tighter leading-tight'>
               {event.title}
             </h1>

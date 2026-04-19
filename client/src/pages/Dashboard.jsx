@@ -158,10 +158,11 @@ export default function Dashboard() {
                         {liveData.myEvents.map(evt => (
                           <div key={evt._id} className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
                              <h4 className="text-xl font-bold mb-6">{evt.title}</h4>
-                             <div className="flex gap-4">
-                               <Link to={`/events/${evt._id}`} className="px-8 py-3 bg-slate-900 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-emerald-600 transition-colors">View</Link>
-                               <button onClick={()=>handleDeleteEvent(evt._id)} className="px-8 py-3 bg-red-50 text-red-500 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-red-500 hover:text-white transition-colors">Delete</button>
-                             </div>
+                              <div className="flex gap-4">
+                                <Link to={`/events/${evt._id}`} className="px-8 py-3 bg-slate-900 text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-emerald-600 transition-colors">View</Link>
+                                <Link to={`/events/${evt._id}/edit`} className="px-8 py-3 bg-white border border-slate-200 text-slate-800 rounded-full text-[10px] font-bold uppercase tracking-widest hover:border-emerald-500 hover:text-emerald-600 transition-colors">Edit</Link>
+                                <button onClick={()=>handleDeleteEvent(evt._id)} className="px-8 py-3 bg-red-50 text-red-500 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-red-500 hover:text-white transition-colors">Delete</button>
+                              </div>
                           </div>
                         ))}
                       </div>

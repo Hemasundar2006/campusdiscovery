@@ -56,7 +56,7 @@ export default function CreateEvent() {
   };
 
   const addCompetition = () => {
-    setCompetitions([...competitions, { name: '', description: '', prize: '', rules: '' }]);
+    setCompetitions([...competitions, { name: '', prize: '', rules: '' }]);
   };
 
   const removeCompetition = (index) => {
@@ -258,7 +258,7 @@ export default function CreateEvent() {
                     <input placeholder="Competition Name" className="w-full bg-slate-50 border-b border-slate-100 py-4 focus:border-emerald-500 outline-none font-bold" value={comp.name} onChange={e => updateCompetition(i, 'name', e.target.value)} />
                     <input placeholder="Prize Pool" className="w-full bg-slate-50 border-b border-slate-100 py-4 focus:border-emerald-500 outline-none font-bold" value={comp.prize} onChange={e => updateCompetition(i, 'prize', e.target.value)} />
                   </div>
-                  <textarea placeholder="Short description & rules..." className="w-full bg-slate-50 border border-slate-100 rounded-[1.5rem] px-6 py-4 focus:border-emerald-500 outline-none font-medium text-sm h-24" value={comp.description} onChange={e => updateCompetition(i, 'description', e.target.value)} />
+                  <textarea placeholder="Short description & rules..." className="w-full bg-slate-50 border border-slate-100 rounded-[1.5rem] px-6 py-4 focus:border-emerald-500 outline-none font-medium text-sm h-24" value={comp.rules} onChange={e => updateCompetition(i, 'rules', e.target.value)} />
                 </motion.div>
               ))}
             </div>
