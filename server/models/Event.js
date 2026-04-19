@@ -16,6 +16,8 @@ const eventSchema = new mongoose.Schema(
     },
     date: { type: Date, required: [true, 'Date is required'] },
     endDate: { type: Date },
+    lastDate: { type: Date },
+    eventDates: { type: String, default: '' },
     imageUrl: { type: String, default: '' },
     imagePath: { type: String, default: '' },
     location: {

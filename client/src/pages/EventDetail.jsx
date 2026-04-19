@@ -125,7 +125,17 @@ export default function EventDetail() {
                 <div className='space-y-2'>
                   <label className='text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500'>Event Schedule</label>
                   <p className='text-2xl font-black'>{formatDate(event.date)}</p>
+                  {event.eventDates && (
+                    <p className='text-sm font-bold text-emerald-500'>({event.eventDates})</p>
+                  )}
                 </div>
+
+                {event.lastDate && (
+                  <div className='space-y-2'>
+                    <label className='text-[10px] font-black uppercase tracking-[0.2em] text-red-500'>Registration Deadline (Last Date)</label>
+                    <p className='text-xl font-black text-white'>{formatDate(event.lastDate)}</p>
+                  </div>
+                )}
                 
                 <div className='space-y-4'>
                   <label className='text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-500'>Venue Location</label>

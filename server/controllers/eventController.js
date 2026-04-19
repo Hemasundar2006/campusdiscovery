@@ -70,6 +70,8 @@ const createEvent = async (req, res, next) => {
       maxAttendees,
       contactEmail,
       competitions,
+      lastDate,
+      eventDates,
     } = req.body;
 
     const location = {
@@ -106,6 +108,8 @@ const createEvent = async (req, res, next) => {
       competitions: competitions ? JSON.parse(competitions) : [],
       maxAttendees: maxAttendees || 0,
       contactEmail: contactEmail || '',
+      lastDate: lastDate || null,
+      eventDates: eventDates || '',
       organiser: req.user._id,
     });
 
@@ -141,6 +145,8 @@ const updateEvent = async (req, res, next) => {
       'isCancelled',
       'competitions',
       'externalLink',
+      'lastDate',
+      'eventDates',
     ];
 
     fields.forEach((field) => {

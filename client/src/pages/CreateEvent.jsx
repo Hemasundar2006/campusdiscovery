@@ -15,6 +15,8 @@ export default function CreateEvent() {
     category: 'tech',
     image: null,
     externalLink: '',
+    lastDate: '',
+    eventDates: '',
   });
   const [competitions, setCompetitions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -194,6 +196,26 @@ export default function CreateEvent() {
                   required
                   className="w-full bg-slate-50 border border-slate-100 rounded-[1.5rem] px-8 py-5 focus:border-emerald-500 outline-none transition-all font-medium"
                   onChange={e => setFormData({ ...formData, date: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-widest text-slate-400 ml-4">Last Date (Deadline)</label>
+                <input 
+                  type="date"
+                  className="w-full bg-slate-50 border border-slate-100 rounded-[1.5rem] px-8 py-5 focus:border-emerald-500 outline-none transition-all font-medium"
+                  onChange={e => setFormData({ ...formData, lastDate: e.target.value })}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-2">
+                <label className="text-[11px] font-bold uppercase tracking-widest text-slate-400 ml-4">Event Dates (Display Text)</label>
+                <input 
+                  type="text"
+                  placeholder="e.g. 12th - 14th Oct"
+                  className="w-full bg-slate-50 border border-slate-100 rounded-[1.5rem] px-8 py-5 focus:border-emerald-500 outline-none transition-all font-medium"
+                  onChange={e => setFormData({ ...formData, eventDates: e.target.value })}
                 />
               </div>
               <div className="space-y-2">
