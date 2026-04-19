@@ -85,20 +85,34 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex flex-col items-center justify-center px-6">
+      <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-6 overflow-hidden">
+        {/* Cinematic Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="w-full h-full object-cover opacity-60"
+          >
+            <source src="https://player.vimeo.com/external/370331493.sd.mp4?s=7b346960f2fc170f3f2081534017a54a01c8ed31&profile_id=139&oauth2_token_id=57447761" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc]/40 via-transparent to-[#f8fafc]" />
+        </div>
+
         <div className="text-center z-10 max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
           >
-            <span className="inline-block px-5 py-2 rounded-full bg-emerald-50 text-emerald-600 font-semibold text-xs uppercase tracking-widest mb-8 border border-emerald-100/50">
+            <span className="inline-block px-5 py-2 rounded-full bg-white/80 backdrop-blur-md text-emerald-600 font-semibold text-xs uppercase tracking-widest mb-8 border border-white/50 shadow-sm">
               Transforming Student Discovery
             </span>
-            <h1 className="text-5xl md:text-8xl font-semibold leading-[1.1] tracking-tight text-slate-900 mb-10">
+            <h1 className="text-5xl md:text-8xl font-semibold leading-[1.1] tracking-tight text-slate-900 mb-10 drop-shadow-sm">
               One platform. <br/><span className="text-emerald-700 italic">Every moment.</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-14 leading-relaxed font-medium">
+            <p className="text-lg md:text-xl text-slate-700 max-w-2xl mx-auto mb-14 leading-relaxed font-semibold">
               Join the elite campus hub where fests, achievements and students unite through high-performance discovery.
             </p>
           </motion.div>
