@@ -6,6 +6,7 @@ import api from '../services/api.jsx';
 import { formatDate } from '../utils/formatDate.jsx';
 import { useAuthContext } from '../context/AuthContext.jsx';
 import CommentList from '../components/comments/CommentList.jsx';
+import SidebarAd from '../components/ads/SidebarAd.jsx';
 
 export default function EventDetail() {
   const { id } = useParams();
@@ -198,6 +199,8 @@ export default function EventDetail() {
                 <p className='text-xl font-black'>Reach the organizer</p>
                 <p className='text-emerald-600 font-bold underline'>{event.contactEmail || 'Connect via Dashboard'}</p>
              </div>
+
+             <SidebarAd />
           </div>
         </div>
       </div>

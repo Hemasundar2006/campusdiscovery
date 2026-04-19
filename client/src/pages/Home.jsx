@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import api from '../services/api.jsx';
 import EventGrid from '../components/events/EventGrid.jsx';
-import NativeAdBlock from '../components/ads/NativeAdBlock.jsx';
 
 const CATS = ['All', 'Academic', 'Social', 'Sports', 'Arts', 'Tech'];
 
