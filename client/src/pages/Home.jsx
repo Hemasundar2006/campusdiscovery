@@ -154,6 +154,57 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Winners Circle Section - Uploaded Event Winners */}
+      {achievements.length > 0 && (
+        <section className="py-32 px-6 bg-slate-50/50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-20">
+              <span className="text-emerald-600 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Champions' Gallery</span>
+              <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-6">The <span className="text-emerald-700 italic">Winners'</span> Circle</h2>
+              <p className="text-slate-500 font-medium text-lg max-w-2xl mx-auto">Relive the moments of victory. These are the students who stood out in our recently uploaded campus events.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {achievements.filter(ach => ach.imageUrl).slice(0, 6).map((ach, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="group relative h-[450px] rounded-[3rem] overflow-hidden shadow-2xl border border-white/20"
+                >
+                  <img 
+                    src={ach.imageUrl} 
+                    alt={ach.title} 
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+                  
+                  <div className="absolute top-6 right-6">
+                    <span className="px-5 py-2 bg-emerald-500/90 backdrop-blur-md text-white text-[11px] font-bold uppercase rounded-full tracking-widest shadow-lg">
+                      {ach.rank || 'Winner'}
+                    </span>
+                  </div>
+
+                  <div className="absolute bottom-10 left-10 right-10">
+                    <p className="text-emerald-400 text-[10px] font-bold uppercase tracking-[0.3em] mb-3">{ach.event?.title || 'Campus Event'}</p>
+                    <h3 className="text-2xl font-bold text-white mb-4 line-clamp-2">{ach.title}</h3>
+                    <div className="flex items-center gap-3">
+                      <img 
+                        src={ach.user?.avatar || `https://ui-avatars.com/api/?name=${ach.user?.name}`} 
+                        className="w-8 h-8 rounded-full border border-white/30" 
+                      />
+                      <span className="text-white/80 text-xs font-semibold">{ach.user?.name}</span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Hall of Fame - Infinite Marquee */}
       {achievements.length > 0 && (
         <section className="py-24 bg-white border-y border-slate-100 overflow-hidden relative">
