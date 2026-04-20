@@ -93,6 +93,7 @@ export default function Home() {
             loop 
             muted 
             playsInline
+            poster="/poster.webp"
             className="w-full h-full object-cover opacity-60"
           >
             <source src="/15359728_3840_2160_30fps.mp4" type="video/mp4" />

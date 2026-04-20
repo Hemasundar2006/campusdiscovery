@@ -5,7 +5,6 @@ import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import AdminRoute from './routes/AdminRoute.jsx';
 import Navbar from './components/layout/Navbar.jsx';
 import Footer from './components/layout/Footer.jsx';
-import LeaderboardAd from './components/ads/LeaderboardAd.jsx';
 import { Analytics } from "@vercel/analytics/react";
 
 // Lazy load pages for performance
@@ -73,7 +72,6 @@ export default function App() {
               </Routes>
             </Suspense>
           </main>
-          <LeaderboardAd />
           <Footer />
         </div>
       </BrowserRouter>
