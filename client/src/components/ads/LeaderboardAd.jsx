@@ -33,12 +33,15 @@ export default function LeaderboardAd() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center py-6 bg-slate-50 border-y border-slate-100 overflow-hidden min-h-[60px]">
-      <div 
-        ref={adRef} 
-        className="bg-white/50 backdrop-blur-sm rounded-lg shadow-sm flex items-center justify-center text-[10px] text-slate-300 font-bold uppercase tracking-[0.2em]"
-      >
-        Advertisement
+    <div className="flex justify-center items-center py-4 md:py-8 bg-slate-50/50 border-y border-slate-100 overflow-hidden w-full">
+      <div className="relative group">
+        <div 
+          ref={adRef} 
+          className="bg-white rounded-xl shadow-lg border border-white overflow-hidden flex items-center justify-center text-[9px] text-slate-300 font-bold uppercase tracking-[0.2em] relative z-10"
+        >
+          {/* Ad will be injected here */}
+        </div>
+        <div className="absolute inset-0 bg-emerald-500/5 blur-2xl -z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
     </div>
   );

@@ -260,6 +260,7 @@ export default function Home() {
         </section>
       )}
 
+
       {/* Events Explore */}
       <section className="py-32 px-6">
         <div className="max-w-7xl mx-auto">

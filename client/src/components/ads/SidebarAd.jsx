@@ -27,7 +27,7 @@ export default function SidebarAd() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center py-4 bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden min-h-[600px]">
+    <div className="hidden md:flex justify-center items-center py-4 bg-slate-50 border border-slate-100 rounded-3xl overflow-hidden min-h-[600px]">
       <div 
         ref={adRef} 
         className="bg-white rounded-lg shadow-sm flex items-center justify-center text-[10px] text-slate-300 font-bold uppercase tracking-[0.2em]"
