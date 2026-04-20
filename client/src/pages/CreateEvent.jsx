@@ -229,14 +229,25 @@ export default function CreateEvent() {
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-4">
               <label className="text-[11px] font-bold uppercase tracking-widest text-slate-400 ml-4">Event Visual (Poster)</label>
-              <input 
-                type="file"
-                accept="image/*"
-                className="w-full bg-slate-50 border border-slate-100 rounded-[1.5rem] px-8 py-5 focus:border-emerald-500 outline-none transition-all font-medium"
-                onChange={e => setFormData({ ...formData, image: e.target.files[0] })}
-              />
+              <div className="flex flex-col md:flex-row gap-6 items-center">
+                <input 
+                  type="file"
+                  accept="image/*"
+                  className="flex-1 w-full bg-slate-50 border border-slate-100 rounded-[1.5rem] px-8 py-5 focus:border-emerald-500 outline-none transition-all font-medium"
+                  onChange={e => setFormData({ ...formData, image: e.target.files[0] })}
+                />
+                {formData.image && (
+                  <div className="w-32 h-32 rounded-2xl overflow-hidden border-2 border-emerald-500 shadow-lg">
+                    <img 
+                      src={URL.createObjectURL(formData.image)} 
+                      alt="Selected Event Poster Preview" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
