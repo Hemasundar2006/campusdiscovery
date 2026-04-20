@@ -7,29 +7,13 @@ import EventGrid from '../components/events/EventGrid.jsx';
 
 const CATS = ['All', 'Academic', 'Social', 'Sports', 'Arts', 'Tech'];
 
-const Floating3DElement = ({ color, size, top, left, delay, rotateClockwise, scrollProgress }) => {
-  const y = useTransform(scrollProgress, [0, 1], [0, -500 * (Math.random() + 0.5)]);
-  const rotate = useTransform(scrollProgress, [0, 1], [0, (rotateClockwise ? 360 : -360) * (Math.random() + 0.5)]);
-  const scale = useTransform(scrollProgress, [0, 0.5, 1], [1, 1.2, 0.8]);
-
-  return (
-    <motion.div
-      style={{ y, rotate, scale, top, left, width: size, height: size }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 0.15 }}
-      transition={{ duration: 1, delay }}
-      className={`fixed pointer-events-none z-0 rounded-3xl border-2 ${color} backdrop-blur-3xl shadow-2xl`}
-    />
-  );
-};
-
 const FeatureImage = ({ src, alt, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.8, delay }}
-    className="relative group p-4 bg-white/40 backdrop-blur-xl rounded-[2.5rem] border border-white/50 shadow-lg"
+    className="relative group p-4 bg-white/50 backdrop-blur-md rounded-[2.5rem] border border-white/50 shadow-lg"
   >
     <div className="rounded-[2rem] overflow-hidden">
       <img 
@@ -58,9 +42,6 @@ export default function Home() {
 
   const scrollVelocity = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
   const textX = useTransform(scrollVelocity, [0, 1], ["0%", "-30%"]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -93,12 +74,6 @@ export default function Home() {
         <link rel="canonical" href="https://campusdiscovery.vercel.app/" />
       </Helmet>
 
-      {/* 3D Floating Elements Background */}
-      <Floating3DElement scrollProgress={scrollYProgress} color="border-emerald-500/20" size="150px" top="15%" left="5%" delay={0.2} rotateClockwise={true} />
-      <Floating3DElement scrollProgress={scrollYProgress} color="border-blue-500/20" size="200px" top="45%" left="85%" delay={0.5} rotateClockwise={false} />
-      <Floating3DElement scrollProgress={scrollYProgress} color="border-purple-500/20" size="100px" top="80%" left="15%" delay={0.8} rotateClockwise={true} />
-      <Floating3DElement scrollProgress={scrollYProgress} color="border-orange-500/20" size="180px" top="60%" left="10%" delay={1.1} rotateClockwise={false} />
-
       {/* Subtle Moving Background Text */}
       <div className="fixed inset-0 pointer-events-none z-0 flex items-center overflow-hidden whitespace-nowrap opacity-[0.02] select-none">
         <motion.div 
@@ -110,25 +85,22 @@ export default function Home() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative min-h-[95vh] flex flex-col items-center justify-center px-6 overflow-hidden">
-        {/* Professional Background Image with parallax */}
-        <motion.div 
-          style={{ y: bgY }}
-          className="absolute inset-0 z-0"
-        >
-          <img 
-            src="/backgrounds/hero-bg.png" 
-            alt="Modern University Campus Courtyard Background"
-            className="w-full h-[120%] object-cover opacity-80 scale-110"
-            loading="eager"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc]/20 via-transparent to-[#f8fafc]" />
-        </motion.div>
+      <section className="relative min-h-[90vh] flex flex-col items-center justify-center px-6 overflow-hidden">
+        {/* Cinematic Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            className="w-full h-full object-cover opacity-60"
+          >
+            <source src="/15359728_3840_2160_30fps.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#f8fafc]/40 via-transparent to-[#f8fafc]" />
+        </div>
 
-        <motion.div 
-          style={{ opacity: heroOpacity, scale: heroScale }}
-          className="text-center z-10 max-w-4xl"
-        >
+        <div className="text-center z-10 max-w-4xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -162,7 +134,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Gallery Section */}
@@ -237,16 +209,8 @@ export default function Home() {
       )}
 
       {/* Events Explore */}
-      <section className="py-32 px-6 relative">
-        <div className="absolute inset-0 z-0 overflow-hidden opacity-30">
-           <img 
-              src="/backgrounds/abstract-3d.png" 
-              alt="Abstract 3D Geometric Background"
-              className="w-full h-full object-cover blur-3xl scale-150"
-              loading="lazy"
-           />
-        </div>
-        <div className="max-w-7xl mx-auto relative z-10">
+      <section className="py-32 px-6">
+        <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-10">
             <h2 className="text-4xl font-semibold tracking-tight">Explore Fests</h2>
             <div className="flex items-center gap-4 p-2 bg-white border border-slate-100 rounded-[2rem] overflow-x-auto no-scrollbar">
